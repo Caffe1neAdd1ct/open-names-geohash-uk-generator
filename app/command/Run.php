@@ -2,11 +2,6 @@
 
 namespace App\Command;
 
-use \Psr\Log\LoggerInterface;
-use \Symfony\Component\Console\Helper\ProgressBar;
-use \Symfony\Component\Console\Input\InputInterface;
-use \Symfony\Component\Console\Output\OutputInterface;
-
 /**
  * Run all commands
  *
@@ -14,14 +9,7 @@ use \Symfony\Component\Console\Output\OutputInterface;
  */
 class Run
 {
-
-    /**
-     * 
-     * @param Symfony\Component\Console\Output\ConsoleOutput $output
-     * @param \Monolog\Logger $logger
-     * @param \Symfony\Component\Console\Helper\ProgressBar $progress
-     */
-    public function __invoke(OutputInterface $output, LoggerInterface $logger, ProgressBar $progress)
+    public function __invoke()
     {
         $output->writeln('Starting run command.');
         // create a new progress bar (50 units)
