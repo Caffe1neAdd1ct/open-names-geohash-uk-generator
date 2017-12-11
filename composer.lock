@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "82185c9f03b0482c221558227ff52d19",
+    "content-hash": "966551da29d38cb7fd96808562e14291",
     "packages": [
         {
             "name": "funkjedi/composer-include-files",
