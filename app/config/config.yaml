@@ -1,0 +1,10 @@
+db:
+    driver: mysql
+    host: 127.0.0.1
+    schema: open_names
+    user: root
+    pass: letmein
+    charset: utf8mb4
+    collation: utf8mb4_general_ci
+    options:
+        
