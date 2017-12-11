@@ -49,9 +49,8 @@ abstract class Base implements InvokableCommand
     
     public final function __invoke(...$args)
     {
-        var_dump($args);
         $this->output->writeln('__invoke ran');
-//        self::start();
+        self::start();
         return call_user_func_array([$this, 'invoke'], $args[0]);
     }
     
