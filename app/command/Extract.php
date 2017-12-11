@@ -26,7 +26,7 @@ class Extract extends \App\Command\Contract\Base
         $filePath = realpath(APP_DIR . $config['path']) . DS . $file;
         $fileExists = file_exists($filePath);
         
-        if(!$file && !$filePath && !$fileExists) {
+        if(!$file || !$filePath || !$fileExists) {
             $this->progress->advance(-1);
             $this->message('Attempting to load file from config.');
             $fileName = $config['file'];
@@ -75,17 +75,21 @@ class Extract extends \App\Command\Contract\Base
      * Warning this will recursively delete a directory!
      * @param string $dir
      */
-    public function deleteFiles($dir) {
+    public function deleteFiles($dir, $original=true)
+    {
         foreach (glob($dir . '/*') as $file) {
             if (is_dir($file)) {
-                $this->deleteFiles($file);
+                $this->deleteFiles($file, false);
             } else {
-                if($file !== ".gitkeep") {
+                if($file !== ".gitkeep" && $file !== '.' && $file !== '..') {
                     unlink($file);
                 }
             }
         }
-        rmdir($dir);
+        
+        if(!empty($dir) && $original === false) {
+            rmdir($dir);
+        }
     }
 
 }
