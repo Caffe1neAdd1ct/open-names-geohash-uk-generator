@@ -79,6 +79,6 @@ abstract class Base implements InvokableCommand
     {
         $this->progress->setMessage($text, 'status');
         $this->progress->advance();
-        $this->output->writeln(PHP_EOL . $text);
+        $this->output->writeln(PHP_EOL);
     }
 }
