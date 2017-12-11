@@ -12,5 +12,8 @@ require_once __DIR__ . '/app/bootstrap.php';
  * php index.php run
  */
 $app->command('run', 'App\Command\Run');
+$app->command('extract [file]', 'App\Command\Extract');
+$app->command('process', 'App\Command\Process');
+$app->command('export', 'App\Command\Export');
 
 $app->run();
