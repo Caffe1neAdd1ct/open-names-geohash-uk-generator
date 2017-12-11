@@ -8,3 +8,6 @@ db:
     collation: utf8mb4_general_ci
     options:
         
+log:
+    dir: /data/logs/error.log
+    level: 100
