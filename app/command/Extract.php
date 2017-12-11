@@ -23,21 +23,19 @@ class Extract extends \App\Command\Contract\Base
         $this->message('Attempting to load file from param...');
         
         $fileName = $file;
-        $filePath = realpath(APP_DIR . $config['path'] . DS . $file);
-        $fileExists = file_exists($path);
+        $filePath = realpath(APP_DIR . $config['path']) . DS . $file;
+        $fileExists = file_exists($filePath);
         
-        
-        if(!$file || !$filePath || !$fileExists) {
+        if(!$file && !$filePath && !$fileExists) {
             $this->progress->advance(-1);
             $this->message('Attempting to load file from config.');
             $fileName = $config['file'];
             $filePath = realpath(APP_DIR . $config['path']) . DS . $fileName;
             $fileExists = file_exists($filePath);
-
         }
         
         if (!$filePath || !$fileExists) {
-            $this->message('File "' . $fileName . '" does not exist.');
+            $this->message('File "' . $fileExists . '" does not exist.');
             exit(1);
         }
         
