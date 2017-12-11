@@ -9,6 +9,7 @@
     ],
     "require": {
         "mnapoli/silly": "1.7.0",
+        "symfony/yaml": "^4.0",
         "funkjedi/composer-include-files": "dev-master",
         "mnapoli/silly-php-di": "1.1.0",
         "slim/pdo": "1.10.1",
