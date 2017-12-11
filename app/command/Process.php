@@ -10,6 +10,12 @@ namespace App\Command;
 class Process extends Base
 {
     public function __invoke() {
-        echo "running";
+        $this->progress->start(6);
+        $this->message('Locating csv files...');
+        $config = $this->getConfig('process');
+        
+        if(!realpath(APP_DIR . $config['source'])) {
+            $this;
+        }
     }
 }

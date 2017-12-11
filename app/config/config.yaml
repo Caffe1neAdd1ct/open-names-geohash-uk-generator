@@ -20,3 +20,6 @@ extract:
     
 export:
     dir:
+        
+process:
+    source: /data/input
