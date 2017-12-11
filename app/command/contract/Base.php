@@ -29,7 +29,39 @@ abstract class Base implements InvokableCommand
      * @var \Symfony\Component\Console\Helper\ProgressBar 
      */
     protected $progress;
+
+    /**
+     * 
+     * @param \DI\Container $container
+     * @param ConsoleOutput $output
+     * @param LoggerInterface $logger
+     * @param ProgressBar $progress
+     */
+    public final function __construct(\DI\Container $container, ConsoleOutput $output, LoggerInterface $logger, ProgressBar $progress)
+    {
+        $this->container = $container;
+        $this->output = $output;
+        $this->logger = $logger;
+        $this->progress = $progress;
+    }
     
+    /**
+     * 
+     * @param array $args
+     * @return type
+     */
+    public final function __invoke(...$args)
+    {
+        $return = call_user_func_array([$this, 'invoke'], $args[0]);
+        $this->progress->finish();
+        return $return;
+    }
+    
+    /**
+     * 
+     * @param string $section
+     * @return array
+     */
     protected final function getConfig($section=false)
     {
         if($section) {
@@ -39,29 +71,14 @@ abstract class Base implements InvokableCommand
         return $this->container->get('config');
     }
     
-    public final function __construct(\DI\Container $container, ConsoleOutput $output, LoggerInterface $logger, ProgressBar $progress)
+    /**
+     * 
+     * @param type $text
+     */
+    protected function message($text = '')
     {
-        $this->container = $container;
-        $this->output = $output;
-        $this->logger = $logger;
-        $this->progress = $progress;
-    }
-    
-    public final function __invoke(...$args)
-    {
-        $this->output->writeln('__invoke ran');
-        self::start();
-        return call_user_func_array([$this, 'invoke'], $args[0]);
-    }
-    
-    public final function start()
-    {
-        $this->output->writeln('start ran');
-        $this->progress->start();
-    }
-    
-    public final function __destruct()
-    {
-        $this->progress->finish();
+        $this->progress->setMessage($text, 'status');
+        $this->progress->advance();
+        $this->output->writeln(PHP_EOL . $text);
     }
 }
