@@ -57,7 +57,6 @@ $container->set(ProgressBar::class, function() use ($container)
     $progress->setProgressCharacter("<fg=green>➤</>");
     $progress->setFormat("<fg=white;bg=cyan> %status:-45s%</>\n%current%/%max% [%bar%] %percent:3s%%\n  %estimated:-20s%  %memory:20s%");
     $progress->setMessage("Starting up the cogs and wheels", 'status');
-    
     return $progress;
 });
 
