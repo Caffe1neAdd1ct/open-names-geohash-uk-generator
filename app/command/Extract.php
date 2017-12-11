@@ -2,12 +2,14 @@
 
 namespace App\Command;
 
+use App\Command\Contract\Base;
+
 /**
  * Extracts the fetched copy of open names data
  *
  * @author Kevin Andrews <kevin@zvps.uk>
  */
-class Extract extends \App\Command\Contract\Base
+class Extract extends Base
 {
     /**
      * 
