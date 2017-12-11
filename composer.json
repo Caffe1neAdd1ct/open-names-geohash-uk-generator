@@ -1,0 +1,15 @@
+{
+    "name": "vendor/open-names-geohash-uk-generator",
+    "description": "Description of project open-names-geohash-uk-generator.",
+    "authors": [
+        {
+            "name": "kevin",
+            "email": "your@email.here"
+        }
+    ],
+    "require": {
+        "mnapoli/silly": "1.7.0",
+        "funkjedi/composer-include-files": "dev-master",
+        "mnapoli/silly-php-di": "1.1.0"
+    }
+}
