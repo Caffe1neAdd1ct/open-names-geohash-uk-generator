@@ -11,3 +11,10 @@ db:
 log:
     dir: /data/logs/error.log
     level: 100
+    
+extract:
+    path: /data/
+    file: opname_csv_gb.zip
+    
+export:
+    dir:
