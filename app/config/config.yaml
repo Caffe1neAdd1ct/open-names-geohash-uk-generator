@@ -15,7 +15,8 @@ log:
 extract:
     path: /data/
     file: opname_csv_gb.zip
-    to: /data/input/
+    to: /data/tmp/
+    move: /data/input/
     
 export:
     dir:
