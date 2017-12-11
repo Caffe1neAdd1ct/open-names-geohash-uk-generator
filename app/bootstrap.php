@@ -3,6 +3,8 @@
 use Symfony\Component\Yaml\Yaml;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Slim\PDO\Database;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
 
 /* @var $app Silly\Application */
 /* @var $container DI\Container */
@@ -11,17 +13,29 @@ $container = $app->getContainer();
 /**
  * Config Loader
  */
-$container->set('config', function($container) {
+$container->set('config', function()
+{
     return Yaml::parseFile(__DIR__ . '/config/config.yaml');
+});
+
+/**
+ * Application logger instance
+ */
+$container->set(Psr\Log\LoggerInterface::class, function() use ($container)
+{
+    
+    $config = $container->get('config')['log'];
+    $monolog = new Logger('default');
+    $monolog->pushHandler(new StreamHandler(__DIR__ . $config['dir'], (int) $config['level']));
+    return $monolog;
 });
 
 /**
  * DB Connection
  */
-$container->set(Database::class, function() use ($container) {
-    
+$container->set(Database::class, function() use ($container)
+{
     $dbConfig = $container->get('config')['db'];
-    
     $dns = $dbConfig['driver'] . 
         ':host=' . $dbConfig['host'] . 
         ';dbname=' . $dbConfig['schema'] . 
