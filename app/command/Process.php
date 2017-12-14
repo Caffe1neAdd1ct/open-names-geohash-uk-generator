@@ -3,6 +3,7 @@
 namespace App\Command;
 
 use App\Command\Contract\Base;
+use App\Workflow\OpenNameImport;
 
 /**
  * Processes the open names data into long/lat and geohash formats
@@ -34,10 +35,18 @@ class Process extends Base
         }
         
         $this->message('Starting to process ' . $fileCount . ' csv files.');
-        $this->progress->start($fileCount + 3);
+        $this->progress->start($fileCount + 4);
+        $this->progress->finish();
         
         foreach ($sourceFiles as $file) {
             
+            $output = [];
+            $reader = new \Port\Csv\CsvReader($file->openFile('r'));
+            $workflow = new OpenNameImport($this->container, $reader);
+            $workflow->addWriter(new \Port\Writer\ArrayWriter($output));
+            $workflow->process();
+            
+            var_dump($output);
         }
         
     }
