@@ -39,14 +39,13 @@ class Process extends Base
         $this->progress->finish();
         
         foreach ($sourceFiles as $file) {
-            
             $output = [];
             $reader = new \Port\Csv\CsvReader($file->openFile('r'));
             $workflow = new OpenNameImport($this->container, $reader);
             $workflow->addWriter(new \Port\Writer\ArrayWriter($output));
+            $workflow->addWriter(new \Port\Pdo\PdoWriter($this->container->get(\Slim\PDO\Database::class), 'postcodes'));
             $workflow->process();
-            
-            var_dump($output);
+            $this->progress->advance();
         }
         
     }
