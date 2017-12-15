@@ -14,7 +14,6 @@ use \Port\Steps\Step\FilterStep;
 class OpenNameImport extends Workflow
 {
     /**
-     *
      * @var \DI\Container 
      */
     private $container;
@@ -28,9 +27,8 @@ class OpenNameImport extends Workflow
     {
         parent::__construct($reader, $name);
         $this->container = $container;
+        $this->setLogger($this->container->get(\Psr\Log\LoggerInterface::class));
         $this->setup($reader);
-        
-        
     }
     
     private function setup(CsvReader $reader)
@@ -73,8 +71,6 @@ class OpenNameImport extends Workflow
         ]);
         $this->filters();
         $this->converters();
-//        $this->mappers();
-//        $this->validators();
     }
     
     private function filters()
@@ -102,11 +98,21 @@ class OpenNameImport extends Workflow
             },
             function($input) {
                 return array_intersect_key($input, array_flip(['ID', 'NAME1', 'LOCAL_TYPE', 'GEOMETRY_X', 'GEOMETRY_Y', 'LAT_X', 'LNG_Y', 'GEOHASH', 'COUNTY_UNITARY', 'REGION']));
+            },
+            function($input) {
+                return [
+                    'postcode'   => $input['NAME1'],
+                    'geometry_x' => $input['GEOMETRY_X'],
+                    'geometry_y' => $input['GEOMETRY_Y'],
+                    'lat_x'      => $input['LAT_X'],
+                    'lng_y'      => $input['LNG_Y'],
+                    'geohash'    => $input['GEOHASH'],
+                    'county'     => $input['COUNTY_UNITARY'],
+                    'region'     => $input['REGION'],
+                ];
             }
         ]);
         $this->addStep($coor);
+        
     }
 }
-
-
-//25,28
