@@ -36,7 +36,6 @@ class Process extends Base
         
         $this->message('Starting to process ' . $fileCount . ' csv files.');
         $this->progress->start($fileCount + 4);
-        $this->progress->finish();
         
         foreach ($sourceFiles as $file) {
             $output = [];
@@ -48,5 +47,6 @@ class Process extends Base
             $this->progress->advance();
         }
         
+        $this->progress->finish();
     }
 }
