@@ -25,7 +25,7 @@ $container->set(Psr\Log\LoggerInterface::class, function() use ($container)
 {
     $config = $container->get('config')['log'];
     $monolog = new Logger('default');
-    $monolog->pushHandler(new StreamHandler(__DIR__ . $config['dir'], (int) $config['level']));
+    $monolog->pushHandler(new StreamHandler(dirname(__DIR__) . $config['dir'], (int) $config['level']));
     return $monolog;
 });
 
