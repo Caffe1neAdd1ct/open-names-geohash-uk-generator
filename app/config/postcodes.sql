@@ -11,5 +11,6 @@ CREATE TABLE `postcodes` (
   `county` varchar(255) DEFAULT NULL,
   `region` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `id_UNIQUE` (`id`)
+  UNIQUE KEY `id_UNIQUE` (`id`),
+  KEY `postcode_INDEX` (`postcode`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
